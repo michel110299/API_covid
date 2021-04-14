@@ -1,0 +1,63 @@
+{%extends "base.html"%}
+{%block conteudo%}
+
+<main>
+
+    <h1 class="center">{{titulo}}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="row">
+            <div class="input-field col s12 m4 add offset-m4">
+                <select name="select_pais">
+                    <option value="brazil" disabled selected>Escolha um país</option>
+                    {%for pais in todos_paises%}
+                    <option value="{{pais.Slug}}">{{pais.Country}}</option>
+                    {%endfor%}
+                </select>
+                <label>Paises</label>
+                <button class="btn waves-effect blue-grey darken-1" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+                </button>
+            </div>
+
+        </div>
+    </form>
+    <div class="row container">
+        <div class="center">
+            <h1>Total de mortes: {{total_mortes}}</h1>
+
+        </div>
+        {%for x in dicionario%}
+            <div class="col s12 m4">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                    <span class="card-title">
+                        
+                        {%if x.Province != "" %}
+                        {{x.Province}}
+                        {%else%}
+                        {{x.Country}}
+                        {%endif%}
+                    </span>
+                        
+                        <p>Casos confirmados:  {{x.Confirmed}}</p>
+                        <p>Total Mortes: {{x.Deaths}}</p>
+                        <p>Casos recuperados: {{x.Recovered}}</p>
+                        <p>Casos ativos: {{x.Active}}</p>
+                    
+                    </div>
+
+                </div>
+            </div>
+        {%endfor%}
+    </div>
+               
+
+
+    
+    
+    
+</main>
+
+
+{%endblock conteudo%}
